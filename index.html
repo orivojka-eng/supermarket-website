@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<!-- 
+  =============================================================================
+  🌟 KODI PËR FILLISTARË / BEGINNER GUIDE:
+  <!DOCTYPE html> i tregon shfletuesit (Chrome, Safari, etj.) që kjo faqe 
+  është shkruar me versionin më modern: HTML5.
+  =============================================================================
+-->
+<html lang="en">
+<head>
+  <!-- 
+    <meta charset="UTF-8"> siguron që të gjitha shkronjat, simbolet dhe 
+    emojit (si 🍎, 🥦, 🥛) të shfaqen saktë pa u prishur.
+  -->
+  <meta charset="UTF-8" />
+
+  <!-- 
+    <meta name="viewport" content="..."> bën që faqja të përshtatet automatikisht 
+    në çdo ekran: telefon celular, tablet dhe kompjuter (Responsive Design).
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- <title> është titulli që shfaqet te tab-i lart në shfletues -->
+  <title>FreshMart Supermarket — Fresh Daily Groceries</title>
+
+  <!-- 
+    <link rel="stylesheet" href="style.css"> lidh këtë skedar HTML me skedarin CSS 
+    ku kemi të gjitha ngjyrat, dizajnin dhe madhësitë.
+  -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts për një shkrim të bukur dhe modern -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 
+    ===========================================================================
+    1. KREU I FAQES / HEADER & NAVIGATION
+    <header> është etiketa semantike që mban pjesën e sipërme të faqes: 
+    logon, kërkimin dhe shportën e blerjeve.
+    ===========================================================================
+  -->
+  <header class="navbar">
+    <div class="nav-container">
+      
+      <!-- Logoja e Supermarketit -->
+      <div class="logo">
+        <span class="logo-icon">🛒</span>
+        <div class="logo-text">
+          <h1>FreshMart</h1>
+          <span class="logo-subtitle">Daily Supermarket</span>
+        </div>
+      </div>
+
+      <!-- 
+        Fusha e Kërkimit:
+        <input> është fusha ku klienti shkruan emrin e ushqimit për ta gjetur shpejt.
+      -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Search fresh apples, milk, bread, cheese..." 
+        />
+      </div>
+
+      <!-- 
+        Butoni i Shportës (Shopping Cart Button):
+        Kur klikohet, hap shportën anësore me produktet e zgjedhura.
+      -->
+      <button class="cart-btn" id="openCartBtn">
+        <span class="cart-icon">🛍️</span>
+        <span class="cart-label">My Cart</span>
+        <!-- Ky numër ndryshon automatikisht me JavaScript sa herë shton ushqime -->
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- 
+    ===========================================================================
+    2. BANERI KRYESOR / HERO BANNER
+    <section> përdoret për të grupuar një pjesë të caktuar të faqes.
+    Këtu njoftojmë zbritjet ditore dhe dërgesën e shpejtë.
+    ===========================================================================
+  -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <span class="hero-tag">🔥 20% OFF TODAY ON ALL ORGANIC FRUITS</span>
+      <h2>Fresh Groceries Delivered To Your Doorstep in 30 Mins</h2>
+      <p>Handpicked farm-fresh fruits, vegetables, dairy, and pantry essentials at supermarket prices.</p>
+      
+      <div class="hero-perks">
+        <div class="perk-item">
+          <span>🚚</span> Free Delivery over $35
+        </div>
+        <div class="perk-item">
+          <span>🌱</span> 100% Organic & Fresh
+        </div>
+        <div class="perk-item">
+          <span>💳</span> Secure & Cash on Delivery
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 
+    ===========================================================================
+    3. ZGJEDHJA E KATEGORIVE / CATEGORY FILTER
+    Butonat me kategori i lejojnë përdoruesit të filtrojë vetëm frutat, 
+    vetëm bylmetin, ose vetëm pijet.
+    ===========================================================================
+  -->
+  <section class="categories-section">
+    <div class="section-container">
+      <div class="categories-bar" id="categoryFilterBar">
+        <!-- data-category përdoret nga JavaScript për të ditur çfarë filtri u zgjodh -->
+        <button class="category-btn active" data-category="all">🛒 All Products</button>
+        <button class="category-btn" data-category="fruits">🍎 Fruits & Veggies</button>
+        <button class="category-btn" data-category="dairy">🥛 Dairy & Eggs</button>
+        <button class="category-btn" data-category="bakery">🥖 Fresh Bakery</button>
+        <button class="category-btn" data-category="meat">🥩 Meat & Poultry</button>
+        <button class="category-btn" data-category="drinks">🥤 Drinks & Juices</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 
+    ===========================================================================
+    4. RRJETI I PRODUKTEVE / PRODUCTS GRID
+    <main> përfaqëson përmbajtjen kryesore të faqes.
+    Brenda këtij div-i me id="productsGrid", JavaScript do të vendosë 
+    automatikisht të gjitha kartat e produkteve me çmimet dhe fotot e tyre!
+    ===========================================================================
+  -->
+  <main class="products-section">
+    <div class="section-container">
+      
+      <!-- Titulli dhe numëruesi i produkteve -->
+      <div class="section-header">
+        <div>
+          <h3 class="section-title">Today's Fresh Picks</h3>
+          <p class="section-subtitle">Prices updated daily from local organic suppliers</p>
+        </div>
+        <span class="items-count-badge" id="itemsCountDisplay">Loading items...</span>
+      </div>
+
+      <!-- Këtu shfaqen ushqimet nga script.js -->
+      <div class="products-grid" id="productsGrid"></div>
+
+      <!-- Ky mesazh shfaqet vetëm kur kërkimi nuk gjen asnjë produkt -->
+      <div class="no-results" id="noResultsMessage" style="display: none;">
+        <span>🔍</span>
+        <h4>No products found</h4>
+        <p>Try searching with another word or click "All Products".</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 
+    ===========================================================================
+    5. SHPORTA ANËSORE / SLIDE-IN SHOPPING CART
+    Ky panel qëndron i fshehur anash dhe hapet kur klikon butonin "My Cart".
+    Mban listën e produkteve, llogarit totalin dhe butonin Checkout.
+    ===========================================================================
+  -->
+  <!-- Shtresa e errët në sfond (Overlay) -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- Paneli i Shportës -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    
+    <div class="cart-header">
+      <div class="cart-title-row">
+        <h3>Shopping Cart</h3>
+        <span class="cart-item-count" id="cartHeaderCount">0 items</span>
+      </div>
+      <!-- Butoni X për të mbyllur shportën -->
+      <button class="close-cart-btn" id="closeCartBtn">&times;</button>
+    </div>
+
+    <!-- Lista ku vendosen artikujt e blerë -->
+    <div class="cart-items-list" id="cartItemsList">
+      <div class="empty-cart-view">
+        <span class="empty-cart-icon">🛒</span>
+        <p>Your grocery basket is empty.</p>
+        <span class="empty-hint">Add fresh items from the market!</span>
+      </div>
+    </div>
+
+    <!-- Pjesa e llogaritjes së çmimit dhe pagesës (Footer) -->
+    <div class="cart-footer" id="cartFooter">
+      
+      <div class="price-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      
+      <div class="price-row">
+        <span>Estimated Tax (5%)</span>
+        <span id="cartTax">$0.00</span>
+      </div>
+
+      <div class="price-row delivery-row">
+        <span>Delivery Fee</span>
+        <span id="cartDelivery" class="free-tag">FREE</span>
+      </div>
+
+      <div class="price-divider"></div>
+
+      <div class="price-row total-row">
+        <span>Total Amount</span>
+        <span id="cartTotal" class="total-amount">$0.00</span>
+      </div>
+
+      <!-- Butoni i përfundimit të porosisë -->
+      <button class="checkout-btn" id="checkoutBtn">
+        Proceed to Checkout ➔
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- 
+    ===========================================================================
+    6. MODALI I POROSISË SË KRYER / ORDER SUCCESS MODAL
+    Shfaqet kur klikon "Proceed to Checkout", duke uruar blerësin me faturë.
+    ===========================================================================
+  -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <div class="modal-icon">🎉</div>
+      <h3>Order Placed Successfully!</h3>
+      <p id="modalOrderSummary">Thank you for shopping at FreshMart. Your order is being packed right now.</p>
+      
+      <div class="modal-delivery-card">
+        <div>⏱️ Estimated Delivery: <strong>25 - 35 mins</strong></div>
+        <div>📍 Delivery Address: <strong>Express Home Delivery</strong></div>
+      </div>
+
+      <button class="modal-close-btn" id="closeModalBtn">
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+
+  <!-- 
+    ===========================================================================
+    7. FUNDI I FAQES / FOOTER
+    <footer> mban të drejtat e autorit dhe informacionet e kontaktit.
+    ===========================================================================
+  -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>🛒 FreshMart Supermarket</h4>
+        <p>Your friendly neighborhood grocery store. Fresh quality daily, sourced directly from certified organic farmers.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Opening Hours</h4>
+        <p>Monday - Sunday: 07:00 AM - 11:00 PM</p>
+        <p>Online Delivery: 24/7 Available</p>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Support</h4>
+        <p>📞 Phone: +1 (800) 555-MART</p>
+        <p>✉️ Email: hello@freshmart.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FreshMart Supermarket. Built with HTML, CSS, and JavaScript.</p>
+    </div>
+  </footer>
+
+  <!-- 
+    ===========================================================================
+    LIDHJA E JAVASCRIPT-IT:
+    <script src="script.js"></script> vendoset në fund të <body> në mënyrë që 
+    shfletuesi të ngarkojë fillimisht të gjithë butonat dhe tekstet në ekran 
+    para se të ekzekutojë kodin JavaScript.
+    ===========================================================================
+  -->
+  <script src="script.js"></script>
+</body>
+</html>
